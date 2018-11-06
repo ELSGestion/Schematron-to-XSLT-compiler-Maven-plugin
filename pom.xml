@@ -1,0 +1,133 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>eu.els.oss</groupId>
+	<artifactId>schematron-to-xslt-compiler-maven-plugin</artifactId>
+	<version>1.0.0</version>
+	<packaging>maven-plugin</packaging>
+
+	<name>Schematron to XSLT compiler Maven plugin</name>
+
+	<description>Maven plugin to compile Schematron to XSL</description>
+	<url>https://github.com/ELSGestion/Schematron-to-XSLT-compiler-Maven-plugin</url>
+	
+	<developers>
+		<developer>
+			<id>jimetevenard</id>
+			<name>Jim Etevenard</name>
+			<email>j.etevenard-ext@lefebvre-sarrut.eu</email>
+			<url>http://www.github.com/jimetevenard</url>
+			<organization>Editions Lefebvre Sarrut</organization>
+			<organizationUrl>http://www.els.eu</organizationUrl>
+			<timezone>Europe/Paris</timezone>
+		</developer>
+	</developers>
+
+	<contributors>
+
+	</contributors>
+
+	
+	<scm>
+		<connection>scm:git:https://github.com/ELSGestion/Schematron-to-XSLT-compiler-Maven-plugin.git</connection>
+		<developerConnection>scm:git:https://github.com/ELSGestion/Schematron-to-XSLT-compiler-Maven-plugin.git</developerConnection>
+		<url>scm:git:https://github.com/ELSGestion/Schematron-to-XSLT-compiler-Maven-plugin.git</url>
+		<tag>HEAD</tag>
+	</scm>
+
+
+	<properties>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<releaseRepositoryId>nexus-releases</releaseRepositoryId>
+		<releaseRepositoryUrl>https://nexus.lefebvre-sarrut.eu/repository/releases</releaseRepositoryUrl>
+		<snapshotRepositoryId>nexus-snapshots</snapshotRepositoryId>
+		<snapshotRepositoryUrl>https://nexus.lefebvre-sarrut.eu/repository/snapshots</snapshotRepositoryUrl>
+
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.apache.maven</groupId>
+			<artifactId>maven-plugin-api</artifactId>
+			<version>3.5.4</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.maven.plugin-tools</groupId>
+			<artifactId>maven-plugin-annotations</artifactId>
+			<version>3.5.2</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>eu.els.oss</groupId>
+			<artifactId>schematron-compiler</artifactId>
+			<version>1.5.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.codehaus.plexus</groupId>
+			<artifactId>plexus-io</artifactId>
+			<version>3.1.0</version>
+		</dependency>
+
+
+	</dependencies>
+
+	<distributionManagement>
+		<snapshotRepository>
+			<id>${snapshotRepositoryId}</id>
+			<url>${snapshotRepositoryUrl}</url>
+		</snapshotRepository>
+		<repository>
+			<id>${releaseRepositoryId}</id>
+			<url>${releaseRepositoryUrl}</url>
+		</repository>
+	</distributionManagement>
+	
+	<profiles>
+		<profile>
+			<id>release</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-release-plugin</artifactId>
+						<version>2.5.3</version>
+						<dependencies>
+							<dependency>
+								<groupId>org.apache.maven.scm</groupId>
+								<artifactId>maven-scm-provider-gitexe</artifactId>
+								<version>1.8.1</version>
+							</dependency>
+						</dependencies>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-enforcer-plugin</artifactId>
+						<version>3.0.0-M1</version>
+						<executions>
+							<execution>
+								<id>enforce-no-snapshots</id>
+								<goals>
+									<goal>enforce</goal>
+								</goals>
+								<configuration>
+									<rules>
+										<requireReleaseDeps>
+											<message>No Snapshots Allowed!</message>
+										</requireReleaseDeps>
+									</rules>
+									<fail>true</fail>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+	
+</project>
