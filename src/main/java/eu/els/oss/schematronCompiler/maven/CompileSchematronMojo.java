@@ -70,6 +70,10 @@ public class CompileSchematronMojo extends AbstractMojo {
 	private void processSet(SchematronCompilationSet compilationSet) throws MojoFailureException, MojoExecutionException {
 		List<FilePair> filePairs = filePairs(compilationSet);
 		
+		for(eu.els.oss.schematronCompiler.maven.Parameter param : compilationSet.getParameters()) {
+			this.compiler.addParameter(param.getQName(), param.getValue());
+		}
+		
 		for (FilePair filePair : filePairs) {
 			try {
 				this.compiler.compile(filePair.getInput(), filePair.getOutput());
@@ -77,6 +81,8 @@ public class CompileSchematronMojo extends AbstractMojo {
 				throw new MojoFailureException("An exception occured compiling " + filePair.getInput().getAbsolutePath(), e);
 			}
 		}
+		
+		this.compiler.resetParameters();
 	}
 
 	/**

@@ -38,6 +38,8 @@ public class SchematronCompilationSet
     private File outputDir;
     
     private FileMapper[] fileMappers;
+    
+    private Parameter[] parameters;
 
     /**
      * Returns a directory, which is scanned for files to compile.
@@ -99,6 +101,14 @@ public class SchematronCompilationSet
 
 	public void setFileMappers(FileMapper[] fileMappers) {
 		this.fileMappers = fileMappers;
+	}
+
+	public Parameter[] getParameters() {
+		return parameters;
+	}
+
+	public void setParameters(Parameter[] parameters) {
+		this.parameters = parameters;
 	}
 
 
