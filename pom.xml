@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>eu.els.oss</groupId>
 	<artifactId>schematron-to-xslt-compiler-maven-plugin</artifactId>
-	<version>1.0.1</version>
+	<version>1.0.2-SNAPSHOT</version>
 	<packaging>maven-plugin</packaging>
 
 	<name>Schematron to XSLT compiler Maven plugin</name>
